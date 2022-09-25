@@ -47,6 +47,24 @@ $("#input_form").submit(function(event) {
     }
     
     $("#output_text").val(output_text);
+
+    var converter = new showdown.Converter();
+    //text      = '# hello, markdown!',
+    var html = converter.makeHtml(output_text);
+    $("#markdown").html(html);
+
+    /*
+    //marked.setOptions({ breaks: true});
+    const regex_m = /\n/gm;
+    var md_text = output_text.replace(regex_m, "\n\n");
+    var md = marked.parse(md_text);
+    //var md = marked.parse("# test\n test");
+    $("#markdown").html(md);
+    
+    var md2 = $("#markdown").text();
+    var md3 = marked.parse(md2);
+    $("#markdown").html(md3);
+    */
 });
 
 function copyToClipboard(text) {
@@ -61,3 +79,5 @@ function copyToClipboard(text) {
 $("#copy").click(function () {
     copyToClipboard($('#output_text').val());
 });
+
+
