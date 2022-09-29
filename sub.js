@@ -12,18 +12,8 @@ $("#input_form").submit(function(event) {
     console.log("table: " + do_table);
 
     if (do_subscript) {
-        const subscripts = [
-            "\u2080",
-            "\u2081",
-            "\u2082",
-            "\u2083",
-            "\u2084",
-            "\u2085",
-            "\u2086",
-            "\u2087",
-            "\u2088",
-            "\u2089" ];
-
+        const subscripts = [ "\u2080", "\u2081", "\u2082", "\u2083", "\u2084",
+		            "\u2085", "\u2086", "\u2087", "\u2088", "\u2089" ];
 
         console.log(subscripts);
 
