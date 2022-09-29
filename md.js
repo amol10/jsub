@@ -6,7 +6,7 @@ process = require('process');
 console.log(process.argv);
 const op = process.argv[2];
 
-var con = false;
+var con = true;
 
 var fmt1_to_md = function(file) {
 	detect_fmt1(file);
@@ -33,11 +33,28 @@ var detect_pdf_ex = function(file) {
 
 var pdf_extract = function(file) {
 	var ex = detect_pdf_ex(file);
-	//md_text = fs.readFileSync(file, 
 
-	if(ex) {
-		const txt_file = prompt("please enter book txt filename: ");
+	
+	if(!ex) {
+		return;
 	}
+
+	const txt_file = "city_of_bones.txt"; //prompt("please enter book txt filename: ");
+	var book_text = fs.readFileSync("data/" + txt_file, {encoding: 'utf-8' });
+	console.log("book length: ", book_text.length);
+
+	md_text = fs.readFileSync(file, {encoding: 'utf-8' });
+	var regex_ex = /\(extract\: (.*)\)/m;
+	var m = md_text.match(regex_ex);
+	console.log(m);
+
+	var s = m[1];
+	s = s.replaceAll('“', '.').replaceAll('”', '.').replaceAll(".*", "(\n|.)*?");
+	var regex_ex2 = `/${s}/gm`; 
+	console.log(regex_ex2);
+	debugger;
+	var e = book_text.match(regex_ex2);
+	console.log(e);
 }
 
 var process = function(file) {
