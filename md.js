@@ -2,6 +2,7 @@ fs = require('fs');
 path = require('path');
 prompt = require('prompt-sync')({ sigint: true });
 process = require('process');
+const { exec } = require('child_process');
 
 console.log(process.argv);
 const op = process.argv[2];
@@ -31,6 +32,27 @@ var detect_pdf_ex = function(file) {
 	return false;
 }
 
+var extract_using_awk = function(file, pattern, cb) {
+	var p2 = "/" + pattern.replaceAll('“', '.').replaceAll('”', '.').replaceAll(".* ", "/,/") + "/";
+	console.log(p2);
+		
+	var cmd = `awk '${p2}' ${file}`;
+	console.log("cmd: " + cmd);
+	exec(cmd, function(error, stdout, stderr) {
+		if (error) {
+			console.log(`error: ${error.messsage}`);
+			return;
+		}
+		if (stdout) {
+			//console.log(`${stdout}`);
+			cb(stdout);
+		}
+	});
+}
+
+var replace_text = function(file, regex, new_text) {
+}
+	
 var pdf_extract = function(file) {
 	var ex = detect_pdf_ex(file);
 
@@ -49,6 +71,16 @@ var pdf_extract = function(file) {
 	console.log(m);
 
 	var s = m[1];
+	var ex_text = "";
+	var cb = function(text) {
+		ex_text = text;
+	}
+	var extracted_text = extract_using_awk("data/" + txt_file, s, cb);
+
+
+	var new_md = md_text.replace(regex_ex, "bq.\n" + ex_text);
+	console.log(new_md);
+	return;
 	s = s.replaceAll('“', '.').replaceAll('”', '.').replaceAll(".*", "(\n|.)*?");
 	var regex_ex2 = `/${s}/gm`; 
 	console.log(regex_ex2);
