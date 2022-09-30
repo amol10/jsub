@@ -18,18 +18,16 @@ var detect_fmt1 = function(file) {
 	console.log(data);
 }
 
-var detect_pdf_ex = function(file) {
+var detect_pdf_ex = function(file, cb) {
 	regex_other = /other/g;
 	if(regex_other.test(file)) {
-		return false;
 	}
 	regex_extract = /\(extract\:/gm;
 	md_text = fs.readFileSync(file, {encoding: 'utf-8' });
 	if (regex_extract.test(md_text)) {
 		console.log(file);
-		return true;
+		cb(file);
 	}
-	return false;
 }
 
 var extract_using_awk = function(file, pattern, cb) {
@@ -50,17 +48,19 @@ var extract_using_awk = function(file, pattern, cb) {
 	});
 }
 
-var replace_text = function(file, regex, new_text) {
+var replace_text = function(md_text, regex, new_text) {
+	console.log(new_text);
+	var new_md = md_text.replace(regex, "bq.\n" + new_text);
+	debugger;
+	console.log(new_md);
+	prompt("replace?");
 }
 	
 var pdf_extract = function(file) {
-	var ex = detect_pdf_ex(file);
+	var ex = detect_pdf_ex(file, pdf_extract2);
+}
 
-	
-	if(!ex) {
-		return;
-	}
-
+var pdf_extract2 = function(file) {
 	const txt_file = "city_of_bones.txt"; //prompt("please enter book txt filename: ");
 	var book_text = fs.readFileSync("data/" + txt_file, {encoding: 'utf-8' });
 	console.log("book length: ", book_text.length);
@@ -73,11 +73,12 @@ var pdf_extract = function(file) {
 	var s = m[1];
 	var ex_text = "";
 	var cb = function(text) {
-		ex_text = text;
+		return replace_text(md_text, s, text);
 	}
 	var extracted_text = extract_using_awk("data/" + txt_file, s, cb);
 
 
+	return;
 	var new_md = md_text.replace(regex_ex, "bq.\n" + ex_text);
 	console.log(new_md);
 	return;
