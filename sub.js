@@ -46,19 +46,23 @@ $("#input_form").submit(function(event) {
     
     $("#output_text").val(output_text);
 
+	/*
     var converter = new showdown.Converter();
     //text      = '# hello, markdown!',
     var html = converter.makeHtml(output_text);
     $("#markdown").html(html);
+	*/
 
-    /*
+    
     //marked.setOptions({ breaks: true});
-    const regex_m = /\n/gm;
-    var md_text = output_text.replace(regex_m, "\n\n");
-    var md = marked.parse(md_text);
+    //const regex_m = /\n/gm;
+    //var md_text = output_text.replace(regex_m, "\n\n");
+    var md = marked.parse("|  |  |\n" + output_text);
+	console.log(md);
     //var md = marked.parse("# test\n test");
     $("#markdown").html(md);
-    
+  
+	/* 
     var md2 = $("#markdown").text();
     var md3 = marked.parse(md2);
     $("#markdown").html(md3);
@@ -66,10 +70,17 @@ $("#input_form").submit(function(event) {
 });
 
 function copyToClipboard(text) {
+	//text = text.replace(/\n/g, "\r\n");
     var $temp = $("<input>");
+	$temp.addClass("whpre");
     $("body").append($temp);
-    $temp.val(text).select();
+    //$temp.val(text).select();
+	$temp.textContent = text;
+	$temp.select();
+	$("#output_text").select();
     document.execCommand("copy");
+	$("#output_text").blur();
+
     $temp.remove();
     console.log("copied to clipboard");
 }
