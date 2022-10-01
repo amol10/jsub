@@ -11,6 +11,9 @@ $("#input_form").submit(function(event) {
     var do_table = $("#table").prop("checked");
     console.log("table: " + do_table);
 
+    var do_sq_brackets = $("#sq_brackets").prop("checked");
+    console.log("sq_brackets: " + do_sq_brackets);
+
     if (do_subscript) {
         const subscripts = [ "\u2080", "\u2081", "\u2082", "\u2083", "\u2084",
 		            "\u2085", "\u2086", "\u2087", "\u2088", "\u2089" ];
@@ -35,6 +38,11 @@ $("#input_form").submit(function(event) {
 	var output_text = output_text.replace(regex_t4, "| $1 | $2 |");
 	var output_text = "|-----|-----|\n" + output_text;	
     }
+
+	if (do_sq_brackets) {
+		//var regex_sqb = new RegExp(`\[\d+\]`, 'gm');
+		var output_text = output_text.replace(/\[\d+\]/g, "");
+	}	
     
     $("#output_text").val(output_text);
 

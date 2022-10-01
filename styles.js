@@ -1,6 +1,6 @@
 var apply_css = function(element, name) {
 	//jQuery("#" + element).addClass(name);
-	jQuery("div").addClass(name);
+	//jQuery("div").addClass(name);
 };
 
 $(document).ready(() => {

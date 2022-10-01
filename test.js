@@ -1,7 +1,7 @@
 var input1 = `Kingdom: 	Animalia
 Phylum: Chordata
 Class: 	Aves
-Order: 	Passeriformes
+Order: 	Passeriformes is[1] something[2] of the form of [test] in [10].
 Family: Parulidae
 Genus: 	Cardellina
 Species: C. rubra
