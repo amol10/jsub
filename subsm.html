@@ -2,14 +2,19 @@
 <html>
     <head>
         <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/showdown@2.0/dist/showdown.min.js"></script>
+        <script src="styles.js"></script>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+	<link rel="stylesheet" href="sub.css">
     </head>
     <body>
 	<div class="p-3">
 		<form id="input_form">
 		    <label for="input_text" class="form-label">Input</label>
 		    <br>
-		    <textarea id="input_text" rows="20" cols="60" class="form-control w-80 h-30"></textarea>
+		    <textarea id="input_text" rows=20 cols=60 class="form-control w-80 h-30"></textarea>
 		    <br>
 		    <input type="checkbox" id="subscript" value=""></input>
 		    <label for="subscript" class="form-label">subscript</label>
@@ -17,19 +22,27 @@
             <input type="checkbox" id="table" value=""></input>
 		    <label for="table" class="form-label">table</label>
 		    <br>
-		    <input type="submit" name="submit" class="btn btn-primary"></input>
+		<input type="checkbox" id="sq_brackets" value=""></input>
+		    <label for="sq_brackets" class="form-label">sq_brackets</label>
+		    <br>
+    <input type="submit" name="submit" class="btn btn-primary"></input>
 		</form>
 
 		
 
 		<br>
-		<textarea id="output_text" rows=20 cols=60 class="form-control w-80 h-30"></textarea>
+		<textarea id="output_text" rows=20 cols=60 class="form-control w-80 h-30 whpre"></textarea>
 		<br>
 		<input type="button" id="copy" value="copy to clipboard" class="btn btn-primary"></button>
 
+		<br><br>
+		<h3>Markdown</h3>
+		<div id="markdown" class="whpre">
+		</div>
+
         <script src="https://cdn.jsdelivr.net/gh/amol10/jsub/sub.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/gh/amol10/jsub/test.js" crossorigin="anonymous"></script>
-		
+	
 	</div>
     </body>
 </html>
